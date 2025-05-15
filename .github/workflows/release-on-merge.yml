@@ -25,7 +25,7 @@ jobs:
         run: npm ci
 
       - name: Download release flag artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: release-flag
           path: .
