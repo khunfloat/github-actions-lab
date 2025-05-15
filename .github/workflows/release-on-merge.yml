@@ -37,14 +37,17 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Set git user
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+
       - name: Run standard-version
         run: |
           npx standard-version ${{ steps.read_flag.outputs.flag }}
 
       - name: Commit changelog and version bump
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
           git add CHANGELOG.md package.json package-lock.json
           git commit -m "chore(release): update changelog"
           git push origin main
