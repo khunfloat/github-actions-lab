@@ -12,4 +12,6 @@ COPY . .
 # expose
 EXPOSE 3000
 
+# cmd
+
 CMD ["npm", "start"]
