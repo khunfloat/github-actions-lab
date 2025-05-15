@@ -6,8 +6,10 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install --production
 
+# copy
 COPY . .
 
+# expose
 EXPOSE 3000
 
 CMD ["npm", "start"]
