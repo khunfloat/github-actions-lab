@@ -30,11 +30,18 @@ jobs:
           name: release-flag
           path: .
 
-      - name: Read release flag
+      - name: Install GitHub CLI
+        run: sudo apt install gh
+
+      - name: Get PR body
         id: read_flag
         run: |
-          flag=$(cat release-flag.txt)
+          pr_number=$(gh pr list --state merged --limit 1 --json number --jq '.[0].number')
+          body=$(gh pr view $pr_number --json body --jq '.body')
+          flag=$(echo "$body" | grep -oE -- '--release-as-(major|minor|patch)' || echo "--release-as-patch")
           echo "flag=$flag" >> $GITHUB_OUTPUT
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Run standard-version
         run: |
