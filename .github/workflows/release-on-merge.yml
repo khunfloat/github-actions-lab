@@ -24,12 +24,6 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Download release flag artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: release-flag
-          path: .
-
       - name: Install GitHub CLI
         run: sudo apt install gh
 
