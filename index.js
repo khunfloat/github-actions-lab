@@ -4,7 +4,7 @@ const port = 3000;
 
 // Root route
 app.get("/", (req, res) => {
-  res.send("Hello World! and float");
+  res.send("Hello World! I'm the master");
 });
 
 app.listen(port, () => {
