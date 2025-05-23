@@ -14,6 +14,10 @@ app.get("/float", (req, res) => {
   res.send("float");
 });
 
+app.get("/ff", (req, res) => {
+  res.send("float");
+});
+
 app.get("/creamykub", (req, res) => {
   // creamykub route
   res.send("creamykaa");
