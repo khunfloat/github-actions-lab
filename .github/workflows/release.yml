@@ -15,6 +15,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+        with:
+          ref: dev
 
       - name: Setup Node
         uses: actions/setup-node@v3
@@ -31,8 +33,15 @@ jobs:
         id: read_flag
         run: |
           pr_number=$(gh pr list --state merged --limit 1 --json number --jq '.[0].number')
+          echo "🔍 Found merged PR number: $pr_number"
+
           body=$(gh pr view $pr_number --json body --jq '.body')
+          echo "📄 PR Body:"
+          echo "$body"
+
           flag=$(echo "$body" | grep -oE -- '--release-as-(major|minor|patch)' || echo "--release-as-patch")
+          echo "✅ Extracted release flag: $flag"
+
           echo "flag=$flag" >> $GITHUB_OUTPUT
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
