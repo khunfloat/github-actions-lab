@@ -14,7 +14,10 @@ app.get("/floatkub", (req, res) => {
   res.send("floatkub");
 });
 
-app.get("/creamykub", (req, res) => {});
+app.get("/creamykub", (req, res) => {
+  // creamy route
+  res.send("creamykaa");
+});
 
 // yaya
 app.listen(port, () => {
