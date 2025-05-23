@@ -6,6 +6,10 @@ app.get("/", (req, res) => {
   res.send("Hello World! I'm the master");
 });
 
+app.get("/yay", (req, res) => {
+  res.send("yay yay");
+});
+
 // yaya
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
