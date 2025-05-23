@@ -11,7 +11,7 @@ app.get("/yay", (req, res) => {
 });
 
 app.get("/fff", (req, res) => {
-  res.send("yay yay bug float");
+  res.send("yfff yay");
 });
 
 app.get("/float", (req, res) => {
