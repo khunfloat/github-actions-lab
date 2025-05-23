@@ -14,6 +14,11 @@ app.get("/float", (req, res) => {
   res.send("float");
 });
 
+// nice comm
+app.get("/ff", (req, res) => {
+  res.send("ff");
+});
+
 app.get("/creamykub", (req, res) => {
   // creamykub route
   res.send("creamykaa");

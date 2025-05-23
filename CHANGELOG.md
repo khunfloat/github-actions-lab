@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 1.2.0 (2025-05-23)
+
+
+### Features
+
+* **api:** create /ff ([f9ab356](https://github.com/khunfloat/github-actions-lab/commit/f9ab3560d56125a86308cbcb86ce780d15bbdbe2))
+
+
+### Bug Fixes
+
+* **api:** fix /ff ([fabc111](https://github.com/khunfloat/github-actions-lab/commit/fabc111eeed10b6b8bf726ff854c9b7854615c84))
+
 ### 1.1.13 (2025-05-23)
 
 ### 1.1.12 (2025-05-23)
