@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 1.1.12 (2025-05-23)
+
+
+### Bug Fixes
+
+* **api:** fix /floatkub to /float ([203f350](https://github.com/khunfloat/github-actions-lab/commit/203f350d55751dc889b368f36f6357ce48f805f6))
+
 ### 1.1.11 (2025-05-23)
 
 ### 1.1.10 (2025-05-23)
