@@ -10,6 +10,10 @@ app.get("/yay", (req, res) => {
   res.send("yay yay bug float");
 });
 
+app.get("/floatkub", (req, res) => {
+  res.send("floatkub");
+});
+
 // yaya
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
