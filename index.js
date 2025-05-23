@@ -7,7 +7,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/yay", (req, res) => {
-  res.send("Hello World! I'm the master yay yay");
+  res.send("yay yay");
 });
 
 // yaya
