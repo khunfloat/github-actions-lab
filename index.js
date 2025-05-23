@@ -14,6 +14,8 @@ app.get("/floatkub", (req, res) => {
   res.send("floatkub");
 });
 
+app.get("/creamykub", (req, res) => {});
+
 // yaya
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
