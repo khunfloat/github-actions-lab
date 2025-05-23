@@ -1,0 +1,143 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - release
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          ref: release
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install GitHub CLI
+        run: sudo apt install gh
+
+      - name: Get PR body
+        id: read_flag
+        run: |
+          pr_number=$(gh pr list --state merged --limit 1 --json number --jq '.[0].number')
+          echo "🔍 Found merged PR number: $pr_number"
+
+          body=$(gh pr view $pr_number --json body --jq '.body')
+          echo "📄 PR Body:"
+          echo "$body"
+
+          flag=$(echo "$body" | grep -oE -- '--release-as-(major|minor|patch)' || echo "--release-as-patch")
+          echo "✅ Extracted release flag: $flag"
+
+          echo "flag=$flag" >> $GITHUB_OUTPUT
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set git user
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+
+      - name: Overwrite release with dev
+        run: |
+          git fetch origin
+          git reset --hard origin/dev
+          git push origin release --force
+
+      - name: Create local dummy tag
+        run: |
+          version=$(node -p "require('./package.json').version")
+          git tag "v$version"
+
+      - name: Run standard-version
+        run: |
+          npx standard-version ${{ steps.read_flag.outputs.flag }}
+
+      - name: Push changelog and version bump (no tag)
+        run: git push origin release
+
+  sync:
+    needs: release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Set git user
+        run: |
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+
+      - name: Fetch all branches
+        run: git fetch --all
+
+      - name: Merge release into main with tag
+        run: |
+          git checkout main
+          git merge origin/release --no-ff -m "chore: merge release into main"
+          version=$(node -p "require('./package.json').version")
+          git tag -a "v$version" -m "Release v$version"
+          git push origin main
+          git push origin "v$version"
+
+      - name: Merge release into dev (no tag)
+        run: |
+          git checkout dev
+          git merge origin/release --no-ff -m "chore: merge release into dev"
+          git push origin dev
+
+  build:
+    needs: sync
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout main with tags
+        uses: actions/checkout@v3
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Extract version from package.json
+        id: get_version
+        run: |
+          version=$(node -p "require('./package.json').version")
+          echo "VERSION=$version" >> $GITHUB_OUTPUT
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.TOKENNAKUB }}
+
+      - name: Build and push Docker image
+        run: |
+          IMAGE_NAME=ghcr.io/${{ github.repository_owner }}/github-actions-lab:${{ steps.get_version.outputs.VERSION }}
+          echo "Building image $IMAGE_NAME"
+          docker build -t $IMAGE_NAME .
+          docker push $IMAGE_NAME

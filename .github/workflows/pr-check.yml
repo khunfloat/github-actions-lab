@@ -1,0 +1,48 @@
+name: PR Check
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize]
+
+jobs:
+  check-release-tag:
+    runs-on: ubuntu-latest
+    if: github.base_ref == 'release'
+    steps:
+      - name: Check PR body for release tag
+        run: |
+          body="${{ github.event.pull_request.body }}"
+          matched_flag=$(echo "$body" | grep -oE -- '--release-as-[a-z]+' | head -n 1 || true)
+
+          if [[ -z "$matched_flag" ]]; then
+            echo "::error ::❌ Missing release tag. Please include one of:"
+            echo "--release-as-major | --release-as-minor | --release-as-patch"
+            exit 1
+          elif [[ "$matched_flag" != "--release-as-major" && "$matched_flag" != "--release-as-minor" && "$matched_flag" != "--release-as-patch" ]]; then
+            echo "::error ::❌ Invalid release tag: '$matched_flag'"
+            echo "Valid options are: --release-as-major, --release-as-minor, --release-as-patch"
+            exit 1
+          else
+            echo "✅ Valid release tag found: $matched_flag"
+          fi
+
+  lint-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Lint
+        run: npm run lint
+
+      - name: Run Test
+        run: npm run test
