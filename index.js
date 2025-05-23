@@ -10,8 +10,8 @@ app.get("/yay", (req, res) => {
   res.send("yay yay bug float");
 });
 
-app.get("/floatkub", (req, res) => {
-  res.send("floatkub");
+app.get("/float", (req, res) => {
+  res.send("float");
 });
 
 app.get("/creamykub", (req, res) => {
