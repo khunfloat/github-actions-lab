@@ -58,10 +58,15 @@ jobs:
           git reset --hard origin/dev
           git push origin release --force
 
-      - name: Create local dummy tag
+      - name: Create local-only dummy tag from package.json
         run: |
           version=$(node -p "require('./package.json').version")
-          git tag "v$version"
+          if ! git tag | grep -q "v$version"; then
+            echo "Creating local dummy tag: v$version"
+            git tag "v$version"
+          else
+            echo "Local tag v$version already exists"
+          fi
 
       - name: Run standard-version
         run: |
