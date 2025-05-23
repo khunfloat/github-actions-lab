@@ -15,7 +15,7 @@ app.get("/floatkub", (req, res) => {
 });
 
 app.get("/creamykub", (req, res) => {
-  // creamy route
+  // creamykub route
   res.send("creamykaa");
 });
 
