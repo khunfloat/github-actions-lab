@@ -11,7 +11,7 @@ app.get("/yay", (req, res) => {
 });
 
 app.get("/floatkub", (req, res) => {
-  res.send("yay yay bug float");
+  res.send("floatkub");
 });
 
 // yaya
