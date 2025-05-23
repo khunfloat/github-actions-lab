@@ -10,6 +10,10 @@ app.get("/yay", (req, res) => {
   res.send("yay yay bug float");
 });
 
+app.get("/fff", (req, res) => {
+  res.send("yay yay bug float");
+});
+
 app.get("/float", (req, res) => {
   res.send("float");
 });
