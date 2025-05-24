@@ -27,26 +27,6 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Install GitHub CLI
-        run: sudo apt install gh
-
-      - name: Get PR body
-        id: read_flag
-        run: |
-          pr_number=$(gh pr list --state merged --limit 1 --json number --jq '.[0].number')
-          echo "🔍 Found merged PR number: $pr_number"
-
-          body=$(gh pr view $pr_number --json body --jq '.body')
-          echo "📄 PR Body:"
-          echo "$body"
-
-          flag=$(echo "$body" | grep -oE -- '--release-as-(major|minor|patch)' || echo "--release-as-patch")
-          echo "✅ Extracted release flag: $flag"
-
-          echo "flag=$flag" >> $GITHUB_OUTPUT
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Set git user
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
@@ -70,7 +50,7 @@ jobs:
 
       - name: Run standard-version
         run: |
-          npx standard-version ${{ steps.read_flag.outputs.flag }}
+          npx standard-version
 
       - name: Push changelog and version bump (no tag)
         run: git push origin release

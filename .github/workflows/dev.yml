@@ -40,8 +40,8 @@ jobs:
         run: |
           IMAGE_NAME=ghcr.io/${{ github.repository_owner }}/github-actions-lab
           echo "Building image $IMAGE_NAME"
-          docker build -t $IMAGE_NAME:${{ steps.meta.outputs.sha }} \
+          docker build -t $IMAGE_NAME:beta-${{ steps.meta.outputs.sha }} \
           -t $IMAGE_NAME:beta-latest .
 
-          docker push $IMAGE_NAME:${{ steps.meta.outputs.sha }}
+          docker push $IMAGE_NAME:beta-${{ steps.meta.outputs.sha }}
           docker push $IMAGE_NAME:beta-latest
