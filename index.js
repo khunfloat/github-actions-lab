@@ -14,7 +14,7 @@ app.get("/float", (req, res) => {
   res.send("float");
 });
 
-app.get("/f", (req, res) => {
+app.get("/v1/f", (req, res) => {
   res.send("f");
 });
 
