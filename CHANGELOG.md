@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0](https://github.com/khunfloat/github-actions-lab/compare/v1.1.13...v2.0.0) (2025-05-24)
+
+
+### ⚠ BREAKING CHANGES
+
+* **api:** 
+
+### Features
+
+* **api:** change prefix /v1/... for /f path ([497a46b](https://github.com/khunfloat/github-actions-lab/commit/497a46b67c2319ce827e8439d22dc46e49c47355))
+* **api:** create /f ([a70b720](https://github.com/khunfloat/github-actions-lab/commit/a70b72083157e12e47175dc6818645b811d87dec))
+
+
+### Bug Fixes
+
+* **api:** change /f response body ([eed16c4](https://github.com/khunfloat/github-actions-lab/commit/eed16c471decd91d44322375226134fbb0ce68c7))
+* **workflow:** update workflow ([74bbe18](https://github.com/khunfloat/github-actions-lab/commit/74bbe18973d492a1e784dd4af51cccffc3f76d8f))
+
 ### [1.1.14](https://github.com/khunfloat/github-actions-lab/compare/v1.1.13...v1.1.14) (2025-05-24)
 
 
