@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.14](https://github.com/khunfloat/github-actions-lab/compare/v1.1.13...v1.1.14) (2025-05-24)
+
+
+### Bug Fixes
+
+* **workflow:** update workflow ([74bbe18](https://github.com/khunfloat/github-actions-lab/commit/74bbe18973d492a1e784dd4af51cccffc3f76d8f))
+
 ### 1.1.13 (2025-05-23)
 
 ### 1.1.12 (2025-05-23)
