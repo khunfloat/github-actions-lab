@@ -15,7 +15,7 @@ app.get("/float", (req, res) => {
 });
 
 app.get("/floatkub", (req, res) => {
-  res.send("float");
+  res.send("float d");
 });
 
 app.get("/creamykub", (req, res) => {
