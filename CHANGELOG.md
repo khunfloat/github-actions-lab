@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://github.com/khunfloat/github-actions-lab/compare/v1.3.0...v1.4.0) (2025-05-26)
+
+
+### Features
+
+* **api:** /mara ([3503e52](https://github.com/khunfloat/github-actions-lab/commit/3503e5249454d0d93f45eba0d24edff37b6a6615))
+
 ## 1.3.0 (2025-05-26)
 
 
