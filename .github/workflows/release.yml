@@ -66,7 +66,7 @@ jobs:
       - name: Merge release into main with tag
         run: |
           git checkout main
-          git merge origin/release --no-ff -m "chore: merge release into main"
+          git merge origin/release --no-ff -m "chore(release): merge from release into main"
           version=$(node -p "require('./package.json').version")
           git tag -a "v$version" -m "Release v$version"
           git push origin main
@@ -75,7 +75,7 @@ jobs:
       - name: Merge release into dev (no tag)
         run: |
           git checkout dev
-          git merge origin/main --no-ff -m "chore: main release into dev"
+          git merge origin/main --no-ff -m "chore(release): main from release into dev"
           git push origin dev
 
   build:
