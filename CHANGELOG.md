@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 1.3.0 (2025-05-26)
+
+
+### Features
+
+* **api:** /heck ([a6d18c8](https://github.com/khunfloat/github-actions-lab/commit/a6d18c8cac281d303c6587ece8c4d4ce97806ece))
+
 ## 1.2.0 (2025-05-26)
 
 
