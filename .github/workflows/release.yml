@@ -38,16 +38,6 @@ jobs:
           git reset --hard origin/dev
           git push origin release --force
 
-      - name: Create local-only dummy tag from package.json
-        run: |
-          version=$(node -p "require('./package.json').version")
-          if ! git tag | grep -q "v$version"; then
-            echo "Creating local dummy tag: v$version"
-            git tag "v$version"
-          else
-            echo "Local tag v$version already exists"
-          fi
-
       - name: Run standard-version
         run: |
           npx standard-version
@@ -85,7 +75,7 @@ jobs:
       - name: Merge release into dev (no tag)
         run: |
           git checkout dev
-          git merge origin/release --no-ff -m "chore: merge release into dev"
+          git merge origin/main --no-ff -m "chore: main release into dev"
           git push origin dev
 
   build:
@@ -122,7 +112,10 @@ jobs:
 
       - name: Build and push Docker image
         run: |
-          IMAGE_NAME=ghcr.io/${{ github.repository_owner }}/github-actions-lab:${{ steps.get_version.outputs.VERSION }}
+          IMAGE_NAME=ghcr.io/${{ github.repository_owner }}/github-actions-lab
           echo "Building image $IMAGE_NAME"
-          docker build -t $IMAGE_NAME .
-          docker push $IMAGE_NAME
+          docker build -t $IMAGE_NAME:${{ steps.get_version.outputs.VERSION }} \
+          docker build -t $IMAGE_NAME:latest .
+
+          docker push $IMAGE_NAME:${{ steps.get_version.outputs.VERSION }}
+          docker push $IMAGE_NAME:latest
