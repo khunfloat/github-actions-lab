@@ -25,3 +25,29 @@ jobs:
 
       - name: Run Test
         run: npm run test
+
+  suggest-merge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Comment proper merge method
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const base = context.payload.pull_request.base.ref;
+            const head = context.payload.pull_request.head.ref;
+
+            let suggestion = '';
+            if (base === 'dev') {
+              suggestion = '✅ This PR should be **Rebased and merged** (feature/xx → dev)';
+            } else if (base === 'release') {
+              suggestion = '✅ This PR should be **Merged with a merge commit** (dev → release)';
+            }
+
+            if (suggestion) {
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: suggestion
+              });
+            }
