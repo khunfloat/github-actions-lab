@@ -1,0 +1,18 @@
+{
+  "name": "github-actions-lab",
+  "version": "1.2.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "lint": "echo linted🥰",
+    "test": "echo tested🥵"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.1.0",
+    "standard-version": "^9.5.0"
+  }
+}
